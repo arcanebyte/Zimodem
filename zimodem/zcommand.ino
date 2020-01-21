@@ -2683,6 +2683,14 @@ void ZCommand::showInitMessage()
   //serial.prints(")");
   serial.prints(commandMode.EOLN);
   char s[100];
+#ifdef ARCANEBYTE
+  serial.prints("Arcanebyte Version ");
+  serial.prints(ARCANEBYTE_VERSION);
+  serial.prints(commandMode.EOLN);
+  serial.prints("For support, please visit ");
+  serial.prints(ARCANEBYTE_URL);
+  serial.prints(commandMode.EOLN);
+#endif
 #ifdef ZIMODEM_ESP32
   sprintf(s,"sdk=%s chipid=%d cpu@%d",ESP.getSdkVersion(),ESP.getChipRevision(),ESP.getCpuFreqMHz());
 #else
@@ -3267,4 +3275,3 @@ void ZCommand::loop()
   }
   checkBaudChange();
 }
-

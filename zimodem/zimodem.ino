@@ -14,6 +14,9 @@
    limitations under the License.
 */
 //#define TCP_SND_BUF                     4 * TCP_MSS
+#define ARCANEBYTE
+#define ARCANEBYTE_VERSION "0.1"
+#define ARCANEBYTE_URL "https://www.arcanebyte.com/wifimodem"
 #define ZIMODEM_VERSION "3.5.1"
 const char compile_date[] = __DATE__ " " __TIME__;
 #define DEFAULT_NO_DELAY true
