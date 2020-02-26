@@ -149,6 +149,7 @@ class ZMode
 #include "proto_ftp.h"
 #include "zcommand.h"
 #include "zconfigmode.h"
+#include "zprint.h"
 
 #ifdef INCLUDE_SD_SHELL
 #include "proto_xmodem.h"
@@ -167,6 +168,7 @@ static ZMode *currMode = null;
 static ZStream streamMode;
 //static ZSlip slipMode; // not yet implemented
 static ZCommand commandMode;
+static ZPrint printMode;
 static ZConfig configMode;
 #ifdef INCLUDE_SD_SHELL
 static ZBrowser browseMode;
