@@ -298,6 +298,7 @@ static void changeBaudRate(int baudRate)
 {
   flushSerial(); // blocking, but very very necessary
   delay(500); // give the client half a sec to catch up
+  logPrintfln("Baud change to %d.\n",baudRate);
   debugPrintf("Baud change to %d.\n",baudRate);
   dequeSize=1+(baudRate/INTERNAL_FLOW_CONTROL_DIV);
   debugPrintf("Deque constant now: %d\n",dequeSize);
