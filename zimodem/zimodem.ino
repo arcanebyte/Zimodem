@@ -20,7 +20,7 @@
 //#define TCP_SND_BUF                     4 * TCP_MSS
 #define ARCANEBYTE
 #define ARCANEBYTE_URL "https://www.arcanebyte.com/wifimodem"
-#define ZIMODEM_VERSION "3.5.4"
+#define ZIMODEM_VERSION "3.5.5"
 #define ARCANEBYTE_VERSION "1.4-3.5.1"
 
 const char compile_date[] = __DATE__ " " __TIME__;
