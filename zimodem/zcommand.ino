@@ -1056,10 +1056,11 @@ ZResult ZCommand::doUpdateFirmware(int vval, uint8_t *vbuf, int vlen, bool isNum
   uint8_t buf[255];
   int bufSize = 254;
 #ifdef ZIMODEM_ESP32
-  if((!doWebGetBytes("www.zimmers.net", 80, "/otherprojs/guru-latest-version.txt", false, buf, &bufSize))||(bufSize<=0))
+  //if((!doWebGetBytes("www.zimmers.net", 80, "/otherprojs/guru-latest-version.txt", false, buf, &bufSize))||(bufSize<=0))
+  if((!doWebGetBytes(UPDATE_URL, 80, VERSION_FILE, false, buf, &bufSize))||(bufSize<=0))
     return ZERROR;
 #else
-  if((!doWebGetBytes("www.zimmers.net", 80, "/otherprojs/c64net-latest-version.txt", false, buf, &bufSize))||(bufSize<=0))
+  if((!doWebGetBytes(UPDATE_URL, 80, VERSION_FILE, false, buf, &bufSize))||(bufSize<=0))
     return ZERROR;
 #endif
 
@@ -1105,12 +1106,12 @@ ZResult ZCommand::doUpdateFirmware(int vval, uint8_t *vbuf, int vlen, bool isNum
   serial.flush();
   char firmwareName[100];
 #ifdef ZIMODEM_ESP32
-  sprintf(firmwareName,"/otherprojs/guru-firmware-%s.bin",buf);
+  sprintf(firmwareName,UPDATE_FILE,buf);
 #else
-  sprintf(firmwareName,"/otherprojs/c64net-firmware-%s.bin",buf);
+  sprintf(firmwareName,UPDATE_FILE,buf);
 #endif
   uint32_t respLength=0;
-  WiFiClient *c = doWebGetStream("www.zimmers.net", 80, firmwareName, false, &respLength); 
+  WiFiClient *c = doWebGetStream(UPDATE_URL, 80, firmwareName, false, &respLength); 
   if(c==null)
   {
     serial.prints(EOLN);
@@ -2687,7 +2688,7 @@ void ZCommand::showInitMessage()
   serial.prints("Arcanebyte Version ");
   serial.prints(ARCANEBYTE_VERSION);
   serial.prints(commandMode.EOLN);
-  serial.prints("For support, please visit ");
+  serial.prints("For details, please visit ");
   serial.prints(ARCANEBYTE_URL);
   serial.prints(commandMode.EOLN);
 #endif
