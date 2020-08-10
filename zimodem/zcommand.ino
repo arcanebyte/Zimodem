@@ -793,6 +793,7 @@ ZResult ZCommand::doConnectCommand(int vval, uint8_t *vbuf, int vlen, bool isNum
         serial.prints("NO CARRIER ");
         serial.printf("%d %s:%d",current->id,current->host,current->port);
         serial.prints(EOLN);
+        serial.flush();
       }
       return ZIGNORE;
     }
@@ -837,6 +838,7 @@ ZResult ZCommand::doConnectCommand(int vval, uint8_t *vbuf, int vlen, bool isNum
           serial.prints("NO CARRIER ");
           serial.printf("%d %s:%d",c->id,c->host,c->port);
           serial.prints(EOLN);
+          serial.flush();
         }
         c=c->next;
       }
@@ -1492,6 +1494,7 @@ ZResult ZCommand::doAnswerCommand(int vval, uint8_t *vbuf, int vlen, bool isNumb
         &&(c->id = lastServerClientId))
         {
           current=c;
+          checkOpenConnections();
           streamMode.switchTo(c);
           lastServerClientId=0;
           if(ringCounter == 0)
@@ -2676,7 +2679,7 @@ ZResult ZCommand::doSerialCommand()
     if(result != ZIGNORE_SPECIAL)
       previousCommand = saveCommand;
     if((suppressResponses)&&(result == ZERROR))
-        return ZERROR;
+      return ZERROR;
     if(crc8 >= 0)
       result=ZERROR; // setting S42 without a T command is now Bad.
     if((result != ZOK)||(index >= len))
@@ -3013,6 +3016,7 @@ bool ZCommand::checkPlusEscape()
             serial.prints("NO CARRIER ");
             serial.printf("%d %s:%d",current->id,current->host,current->port);
             serial.prints(EOLN);
+            serial.flush();
           }
         }
         delete current;
@@ -3136,6 +3140,7 @@ void ZCommand::sendNextPacket()
             serial.prints("NO CARRIER ");
             serial.printi(nextConn->id);
             serial.prints(EOLN);
+            serial.flush();
           }
           if(serial.getFlowControlType() == FCT_MANUAL)
           {
