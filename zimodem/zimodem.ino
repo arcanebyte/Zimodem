@@ -18,6 +18,9 @@
  * Copyright 2020 James Denton
  */
 //#define TCP_SND_BUF                     4 * TCP_MSS
+#define ARCANEBYTE
+#define ARCANEBYTE_VERSION "1.0a"
+#define ARCANEBYTE_URL "https://www.arcanebyte.com/wifimodem"
 #define ZIMODEM_VERSION "3.5.1"
 #define ARCANEBYTE_VERSION "1.2-3.5.1"
 
