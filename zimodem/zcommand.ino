@@ -1049,17 +1049,17 @@ ZResult ZCommand::doWebDump(const char *filename, const bool cache)
 ZResult ZCommand::doUpdateFirmware(int vval, uint8_t *vbuf, int vlen, bool isNumber)
 {
   serial.prints("Local firmware version ");
-  serial.prints(ZIMODEM_VERSION);
+  serial.prints(ARCANEBYTE_VERSION);
   serial.prints(".");
   serial.prints(EOLN);
 
   uint8_t buf[255];
   int bufSize = 254;
 #ifdef ZIMODEM_ESP32
-  if((!doWebGetBytes("www.zimmers.net", 80, "/otherprojs/guru-latest-version.txt", false, buf, &bufSize))||(bufSize<=0))
+  if((!doWebGetBytes(UPDATE_URL, 80, VERSION_FILE, false, buf, &bufSize))||(bufSize<=0))
     return ZERROR;
 #else
-  if((!doWebGetBytes("www.zimmers.net", 80, "/otherprojs/c64net-latest-version.txt", false, buf, &bufSize))||(bufSize<=0))
+  if((!doWebGetBytes(UPDATE_URL, 80, VERSION_FILE, false, buf, &bufSize))||(bufSize<=0))
     return ZERROR;
 #endif
 
@@ -1083,7 +1083,7 @@ ZResult ZCommand::doUpdateFirmware(int vval, uint8_t *vbuf, int vlen, bool isNum
     buf[bufSize] = 0;
   }
   
-  if((strlen(ZIMODEM_VERSION)==bufSize) && memcmp(buf,ZIMODEM_VERSION,strlen(ZIMODEM_VERSION))==0)
+  if((strlen(ARCANEBYTE_VERSION)==bufSize) && memcmp(buf,ARCANEBYTE_VERSION,strlen(ARCANEBYTE_VERSION))==0)
   {
     serial.prints("Your modem is up-to-date.");
     serial.prints(EOLN);
@@ -1105,12 +1105,12 @@ ZResult ZCommand::doUpdateFirmware(int vval, uint8_t *vbuf, int vlen, bool isNum
   serial.flush();
   char firmwareName[100];
 #ifdef ZIMODEM_ESP32
-  sprintf(firmwareName,"/otherprojs/guru-firmware-%s.bin",buf);
+  sprintf(firmwareName,UPDATE_FILE,buf);
 #else
-  sprintf(firmwareName,"/otherprojs/c64net-firmware-%s.bin",buf);
+  sprintf(firmwareName,UPDATE_FILE,buf);
 #endif
   uint32_t respLength=0;
-  WiFiClient *c = doWebGetStream("www.zimmers.net", 80, firmwareName, false, &respLength); 
+  WiFiClient *c = doWebGetStream(UPDATE_URL, 80, firmwareName, false, &respLength); 
   if(c==null)
   {
     serial.prints(EOLN);
@@ -2671,8 +2671,13 @@ void ZCommand::showInitMessage()
   SPIFFS.info(info);
   int totalSPIFFSSize = info.totalBytes;
 #ifdef RS232_INVERTED
+  serial.prints("Inverted RS232");
+  serial.prints(commandMode.EOLN);
   serial.prints("C64Net WiFi Firmware v");
+
 #else
+  serial.prints("Non-Inverted RS232");
+  serial.prints(commandMode.EOLN);
   serial.prints("Zimodem Firmware v");
 #endif
 #endif
@@ -2683,6 +2688,13 @@ void ZCommand::showInitMessage()
   //serial.prints(")");
   serial.prints(commandMode.EOLN);
   char s[100];
+#ifdef ARCANEBYTE
+  serial.prints("ArcaneByte Firmware v");
+  serial.prints(ARCANEBYTE_VERSION);
+  serial.prints(commandMode.EOLN);
+  serial.prints("https://www.arcanebyte.com/");
+  serial.prints(commandMode.EOLN);
+#endif
 #ifdef ZIMODEM_ESP32
   sprintf(s,"sdk=%s chipid=%d cpu@%d",ESP.getSdkVersion(),ESP.getChipRevision(),ESP.getCpuFreqMHz());
 #else
@@ -3267,4 +3279,3 @@ void ZCommand::loop()
   }
   checkBaudChange();
 }
-
