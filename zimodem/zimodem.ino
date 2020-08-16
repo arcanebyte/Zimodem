@@ -13,14 +13,17 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
+/*
+ * Modifications for the Apple Lisa by ArcaneByte
+ * Copyright 2020 James Denton
+ */
 //#define TCP_SND_BUF                     4 * TCP_MSS
 #define ARCANEBYTE
 #define ARCANEBYTE_VERSION "1.0a"
 #define ARCANEBYTE_URL "https://www.arcanebyte.com/wifimodem"
 #define ZIMODEM_VERSION "3.5.1"
-#define UPDATE_URL "https://raw.githubusercontent.com/arcanebyte/Zimodem/master"
-#define VERSION_FILE "/latest-version.txt"
-#define UPDATE_FILE "https://raw.githubusercontent.com/arcanebyte/Zimodem/master/firmware/wifimodem-firmware-%s.bin"
+#define ARCANEBYTE_VERSION "1.2-3.5.1"
+
 const char compile_date[] = __DATE__ " " __TIME__;
 #define DEFAULT_NO_DELAY true
 #define null 0
@@ -81,10 +84,12 @@ const char compile_date[] = __DATE__ " " __TIME__;
 # define DEFAULT_PIN_CTS 5 // is 0 for ESP-01, see getDefaultCtsPin() below.
 # define DEFAULT_PIN_DCD 2
 # define DEFAULT_FCT FCT_RTSCTS
-# define RS232_INVERTED 1
+//# define RS232_INVERTED 1
+# undef RS232_INVERTED // Undefine for proper RS232 (Lisa)
 # define debugPrintf doNothing
 # define preEOLN(...)
 # define echoEOLN(...) serial.prints(EOLN)
+# define ARCANEBYTE
 #endif
 
 #ifdef RS232_INVERTED
@@ -120,6 +125,9 @@ const char compile_date[] = __DATE__ " " __TIME__;
 #define MAX_PIN_NO 50
 #define INTERNAL_FLOW_CONTROL_DIV 380
 
+#define UPDATE_URL   "downloads.arcanebyte.com"
+#define VERSION_FILE "/firmware/wifimodem-latest-version.txt"
+#define UPDATE_FILE  "/firmware/wifimodem-firmware-%s.bin"
 
 class ZMode
 {
