@@ -21,7 +21,7 @@
 #define ARCANEBYTE
 #define ARCANEBYTE_URL "https://www.arcanebyte.com/wifimodem"
 #define ZIMODEM_VERSION "3.5.1"
-#define ARCANEBYTE_VERSION "1.2-3.5.1"
+#define ARCANEBYTE_VERSION "1.3-3.5.1"
 
 const char compile_date[] = __DATE__ " " __TIME__;
 #define DEFAULT_NO_DELAY true
