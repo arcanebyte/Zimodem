@@ -21,7 +21,7 @@
 #define ARCANEBYTE
 #define ARCANEBYTE_URL "https://www.arcanebyte.com/wifimodem"
 #define ZIMODEM_VERSION "3.5.1"
-#define ARCANEBYTE_VERSION "1.3-3.5.1"
+#define ARCANEBYTE_VERSION "1.4-3.5.1"
 
 const char compile_date[] = __DATE__ " " __TIME__;
 #define DEFAULT_NO_DELAY true
@@ -82,7 +82,7 @@ const char compile_date[] = __DATE__ " " __TIME__;
 # define DEFAULT_PIN_RTS 4
 # define DEFAULT_PIN_CTS 5 // is 0 for ESP-01, see getDefaultCtsPin() below.
 # define DEFAULT_PIN_DCD 2
-# define DEFAULT_FCT FCT_RTSCTS
+# define DEFAULT_FCT FCT_DISABLED
 //# define RS232_INVERTED 1
 # undef RS232_INVERTED // Undefine for proper RS232 (Lisa)
 # define debugPrintf doNothing
