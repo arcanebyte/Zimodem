@@ -20,7 +20,7 @@
 //#define TCP_SND_BUF                     4 * TCP_MSS
 #define ARCANEBYTE
 #define ARCANEBYTE_URL "https://www.arcanebyte.com/wifimodem"
-#define ZIMODEM_VERSION "3.5.6"
+#define ZIMODEM_VERSION "3.5.7"
 #define ARCANEBYTE_VERSION "1.4-3.5.1"
 
 const char compile_date[] = __DATE__ " " __TIME__;
@@ -73,7 +73,7 @@ const char compile_date[] = __DATE__ " " __TIME__;
 # define UART_NB_STOP_BIT_2    0B00110000
 # define preEOLN serial.prints
 # define echoEOLN serial.write
-# define HARD_DCD_HIGH 1
+//# define HARD_DCD_HIGH 1
 //# define HARD_DCD_LOW 1
 #else  // ESP-8266, e.g. ESP-01, ESP-12E, inverted for C64Net WiFi Modem
 # define DEFAULT_PIN_DSR 13
