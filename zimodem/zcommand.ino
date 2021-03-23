@@ -764,6 +764,11 @@ ZResult ZCommand::doInfoCommand(int vval, uint8_t *vbuf, int vlen, bool isNumber
   }
   case 10:
   {
+    serial.printf("%s",printMode.getLastPrinterSpec());
+    break;
+  }
+  case 11:
+  {
     serial.printf("%d%s",ESP.getFreeHeap(),EOLN.c_str());
     break;
   }
